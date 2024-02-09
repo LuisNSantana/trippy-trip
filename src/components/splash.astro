@@ -1,7 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import astronautImage from "~/assets/astronaut.png";
+import logoTrippyBlanco from "~/assets/logo_blanco.png";
+import isoTipoTrippyBlanco from "~/assets/isotipo_blanco.png";
 import HeroImage from "~/components/hero-image.astro";
 import Starfield from "~/components/starfield.astro";
 import GitHubCorner from "./github-corner.astro";
@@ -18,7 +19,7 @@ async function getData() {
     descripcion = data.map((item) => item.descripcion)[0];
 
     // Si necesitas manipular el DOM, asegúrate de que los elementos estén presentes
-    console.log(typeof descripcion);
+    
   } catch (err) {
     console.error("Error fetching data:", err);
   }
@@ -28,7 +29,7 @@ await getData();
 
 <section class="relative h-full bg-black">
   <Starfield />
-  <GitHubCorner />
+  <!-- <GitHubCorner /> -->
   <div id="splash-bg-fallback" class="absolute inset-0 hidden opacity-40">
     <HeroImage />
   </div>
@@ -36,7 +37,12 @@ await getData();
     <h2
       class="flex flex-col items-center gap-2 self-end sm:gap-4 sm:self-auto sm:justify-self-end"
     >
-      <Icon name="logomark" class="size-24 text-white md:size-32" />
+      <!-- <Icon name="logomark" class="size-24 text-white md:size-32"   /> -->
+      <Image
+        class="size-28 md:32"
+        src={isoTipoTrippyBlanco}
+        alt="Trippy Trip logo"
+        />
       <div
         class="gradient-text text-center font-extrabold tracking-tighter text-8xl"
       >
@@ -49,7 +55,7 @@ await getData();
     >
       <Image
         class="h-full w-full object-cover"
-        src={astronautImage}
+        src={logoTrippyBlanco}
         widths={widths}
         sizes={sizes}
         loading="eager"
