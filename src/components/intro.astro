@@ -3,23 +3,27 @@ import { Icon } from "astro-icon/components";
 import ContentSection from "~/components/content-section.astro";
 import { Image } from "astro:assets";
 import elemento2 from "~/assets/elemento_2.png";
+import logo from "~/assets/logo_blanco.png";
 ---
 
 <ContentSection title="Trippy trip" id="intro">
-  <Icon slot="eyebrow" name="logomark" class="size-32" />
   <Image
-    class="size-20 absolute top-25 left-2"
+    class="top-25 absolute left-2 size-20"
     src={elemento2}
     alt="Trippy Trip logo"
-    />
+  />
   <Fragment slot="lead">
     <p>
       Somos una empresa especializada en eventos y fiestas exclusivas, donde la
       <span class="text-primary">creatividad</span>, la
       <span class="text-primary">excelencia en el servicio</span> y la
-      <span class="text-primary">atención al detalle</span> son nuestras señas de identidad. Desde bodas íntimas hasta eventos corporativos de gran envergadura, nos dedicamos a crear experiencias inolvidables. Nuestro enfoque en el lujo garantiza que cada evento sea único y excepcional. Confíe en nosotros para hacer realidad sus sueños y convertir cualquier ocasión en un momento inolvidable y extraordinario.
+      <span class="text-primary">atención al detalle</span> son nuestras señas de
+      identidad. Desde bodas íntimas hasta eventos corporativos de gran envergadura,
+      nos dedicamos a crear experiencias inolvidables. Nuestro enfoque en el lujo
+      garantiza que cada evento sea único y excepcional. Confíe en nosotros para
+      hacer realidad sus sueños y convertir cualquier ocasión en un momento inolvidable
+      y extraordinario.
     </p>
-    
   </Fragment>
   <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
     <a

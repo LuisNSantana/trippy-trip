@@ -8,11 +8,15 @@ import Intro from "~/components/intro.astro";
 import Showcase from "~/components/showcase.astro";
 import Splash from "~/components/splash.astro";
 import "~/styles/index.css";
+import { client } from "../../lib/sanity";
 
 const { generator, site } = Astro;
 const image = new URL("social.jpg", site);
 const description =
   "Build fast websites, faster. Astro is a new kind of site builder for the modern web. Lightning-fast performance meets powerful developer experience.";
+
+const query = `*[_type == "events"]`;
+const eventos = await client.fetch(query);
 ---
 
 <!doctype html>
@@ -68,6 +72,18 @@ const description =
       <Features />
       <Compatibility />
       <Showcase />
+      <h1>My blog</h1>
+      {
+        eventos && (
+          <ul>
+            {eventos.map((evento) => (
+              <li>
+                <a href="eventos/{eventos.slug.current}">{evento.title}</a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
     </div>
     <Footer />
   </body>
