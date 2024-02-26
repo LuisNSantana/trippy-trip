@@ -1,14 +1,14 @@
 import { isRemotePath } from '@astrojs/internal-helpers/path';
 import mime from 'mime/lite.js';
-import { A as AstroError, c as InvalidImageService, d as ExpectedImageOptions, E as ExpectedImage, e as createAstro, f as createComponent, g as ImageMissingAlt, r as renderTemplate, m as maybeRenderHead, h as addAttribute, s as spreadAttributes } from '../astro_mAfdxP2R.mjs';
-import { i as isESMImportedImage, a as isLocalService, b as isRemoteImage, D as DEFAULT_HASH_PROPS, c as isRemoteAllowed } from '../astro/assets-service_cMEgKxHj.mjs';
+import { A as AstroError, h as InvalidImageService, i as ExpectedImageOptions, E as ExpectedImage, c as createAstro, d as createComponent, j as ImageMissingAlt, r as renderTemplate, m as maybeRenderHead, e as addAttribute, s as spreadAttributes } from '../astro_9p6dM9az.mjs';
+import { i as isESMImportedImage, a as isLocalService, b as isRemoteImage, D as DEFAULT_HASH_PROPS, c as isRemoteAllowed } from '../astro/assets-service_SJKqSV9j.mjs';
 import 'clsx';
 
 async function getConfiguredImageService() {
   if (!globalThis?.astroAsset?.imageService) {
     const { default: service } = await import(
       // @ts-expect-error
-      '../astro/assets-service_cMEgKxHj.mjs'
+      '../astro/assets-service_SJKqSV9j.mjs'
     ).then(n => n.s).catch((e) => {
       const error = new AstroError(InvalidImageService);
       error.cause = e;
@@ -107,7 +107,7 @@ const etag = (payload, weak = false) => {
   return prefix + fnv1a52(payload).toString(36) + payload.length.toString(36) + '"';
 };
 
-const $$Astro$1 = createAstro("https://astro-moon-landing.netlify.app/");
+const $$Astro$1 = createAstro("https://trippy-trip.netlify.app/");
 const $$Image = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$Image;
@@ -127,9 +127,9 @@ const $$Image = createComponent(async ($$result, $$props, $$slots) => {
     additionalAttributes.srcset = image.srcSet.attribute;
   }
   return renderTemplate`${maybeRenderHead()}<img${addAttribute(image.src, "src")}${spreadAttributes(additionalAttributes)}${spreadAttributes(image.attributes)}>`;
-}, "/Users/nayodev/Desktop/trippy-trip/astro-landing-page/node_modules/astro/components/Image.astro", void 0);
+}, "C:/Users/Luis Nayib/Documents/DEV-DESARROLLO/ASTRO-PROJECTS/trippy-trip/node_modules/astro/components/Image.astro", void 0);
 
-const $$Astro = createAstro("https://astro-moon-landing.netlify.app/");
+const $$Astro = createAstro("https://trippy-trip.netlify.app/");
 const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$Picture;
@@ -167,10 +167,10 @@ const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
     const srcsetAttribute = props.densities || !props.densities && !props.widths ? `${image.src}${image.srcSet.values.length > 0 ? ", " + image.srcSet.attribute : ""}` : image.srcSet.attribute;
     return renderTemplate`<source${addAttribute(srcsetAttribute, "srcset")}${addAttribute("image/" + image.options.format, "type")}${spreadAttributes(sourceAdditionalAttributes)}>`;
   })} <img${addAttribute(fallbackImage.src, "src")}${spreadAttributes(imgAdditionalAttributes)}${spreadAttributes(fallbackImage.attributes)}> </picture>`;
-}, "/Users/nayodev/Desktop/trippy-trip/astro-landing-page/node_modules/astro/components/Picture.astro", void 0);
+}, "C:/Users/Luis Nayib/Documents/DEV-DESARROLLO/ASTRO-PROJECTS/trippy-trip/node_modules/astro/components/Picture.astro", void 0);
 
 const imageConfig = {"service":{"entrypoint":"astro/assets/services/sharp","config":{}},"domains":[],"remotePatterns":[]};
-					new URL("file:///Users/nayodev/Desktop/trippy-trip/astro-landing-page/dist/");
+					new URL("file:///C:/Users/Luis%20Nayib/Documents/DEV-DESARROLLO/ASTRO-PROJECTS/trippy-trip/dist/");
 					const getImage = async (options) => await getImage$1(options, imageConfig);
 
 async function loadRemoteImage(src) {
