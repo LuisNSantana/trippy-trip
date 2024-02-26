@@ -4,11 +4,16 @@ import type { CollectionEntry } from "astro:content";
 
 
 
-export interface Props {
-  site: CollectionEntry<"showcase">;
-}
-
-const { site } = Astro.props;
+const eventos = await client.fetch( 
+  `*[_type == "event"] {
+  "title": title,
+  "slug":slug,
+  "url": url,
+  "content": content[]{
+    "text": children[].text,
+    "imageUrl": asset->url
+  }
+}`);
 
 const widths = [450, 800];
 const sizes = "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw";

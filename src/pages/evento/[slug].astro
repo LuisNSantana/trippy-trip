@@ -1,0 +1,52 @@
+---
+import ContentSection from "~/components/content-section.astro";
+import { client } from "../../../lib/sanity";
+import PortableText from '../../components/PortableText.astro';
+
+export async function getStaticPaths() {
+  const posts = await client.fetch(`*[_type == "event"]`);
+
+  return posts.map((post) => {
+    return {
+      params: {
+        slug: post.slug?.current || '',
+      },
+      props: { ...post },
+    };
+  });
+}
+
+const queryImage = `*[_type == "event"] {
+  "title": title,
+  "content": content[]{
+    "text": children[].text,
+    "imageUrl": asset.url
+  }
+}`;
+
+// const dataImage = await client.fetch(queryImage);
+// {dataImage.map((evento) => (
+//   <div>
+//     <h2>{evento.title}</h2>
+//     {evento.content.map((elemento) => (
+//       <div>
+//         <p>{elemento.text}</p>
+//         <img src={elemento.imageUrl} alt={elemento.alt} />
+//       </div>
+//     ))}
+//   </div>
+// ))}
+// console.log("IMAGEN CONSULTA:", dataImage)
+
+
+const { title, body } = Astro.props;
+
+---
+<ContentSection title="Eventos" id="evento">
+  <h1>{title}</h1>
+</ContentSection>
+
+
+
+
+<PortableText portableText={body} />

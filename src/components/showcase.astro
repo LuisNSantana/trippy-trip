@@ -3,6 +3,10 @@ import { getCollection } from "astro:content";
 import ContentSection from "~/components/content-section.astro";
 import ShowcaseCard from "~/components/showcase-card.astro";
 
+import { client } from "../../lib/sanity";
+
+
+
 const featuredSites = await getCollection(
   "showcase",
   ({ data }) => "featured" in data,
@@ -10,6 +14,11 @@ const featuredSites = await getCollection(
 const orderedSites = featuredSites.sort(
   (a, b) => a.data.featured! - b.data.featured!,
 );
+const query = `*[_type == "event"]`;
+const eventData = await client.fetch(query)
+
+console.log(featuredSites);
+
 ---
 
 <ContentSection title="Eventos" id="evento">

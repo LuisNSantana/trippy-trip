@@ -7,16 +7,23 @@ import Header from "~/components/header.astro";
 import Intro from "~/components/intro.astro";
 import Showcase from "~/components/showcase.astro";
 import Splash from "~/components/splash.astro";
+import Evento from "~/components/evento.astro";
 import "~/styles/index.css";
 import { client } from "../../lib/sanity";
+import type { any } from "astro/zod";
+
 
 const { generator, site } = Astro;
 const image = new URL("social.jpg", site);
 const description =
   "Build fast websites, faster. Astro is a new kind of site builder for the modern web. Lightning-fast performance meets powerful developer experience.";
 
-const query = `*[_type == "events"]`;
-const eventos = await client.fetch(query);
+const query = `*[_type == "event"]`;
+const dataEvento = await client.fetch(query);
+
+
+
+
 ---
 
 <!doctype html>
@@ -71,19 +78,24 @@ const eventos = await client.fetch(query);
       <Intro />
       <Features />
       <Compatibility />
-      <Showcase />
-      <h1>My blog</h1>
-      {
-        eventos && (
-          <ul>
-            {eventos.map((evento) => (
-              <li>
-                <a href="eventos/{eventos.slug.current}">{evento.title}</a>
-              </li>
-            ))}
-          </ul>
-        )
-      }
+      <!-- <Showcase /> -->
+      <Evento />
+      
+
+      
+      
+      <script>
+        const menu = document.getElementById("menu");
+        const button = document.getElementById("menu-button");
+        const nav = document.getElementById("nav");
+
+        function toggleMenu() {
+          nav.classList.toggle("hidden");
+          button.classList.toggle("hidden");
+        }
+
+        button.addEventListener("click", toggleMenu);
+      </script>
     </div>
     <Footer />
   </body>
