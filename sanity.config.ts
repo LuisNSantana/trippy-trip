@@ -9,9 +9,9 @@ import { assist } from "@sanity/assist";
 
 export default defineConfig({
   name: "trippy-backend",
-  title: "trippy-backend",
-  projectId: "u63a7pny",
-  dataset: "production",
+  title: process.env.SANITY_STUDIO_TITLE,
+  projectId: process.env.SANITY_PROJECT_ID!,
+  dataset: process.env.SANITY_DATASET,
   plugins: [
     structureTool({
       structure: deskStructure,
