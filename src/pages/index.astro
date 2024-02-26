@@ -12,18 +12,10 @@ import "~/styles/index.css";
 import { client } from "../../lib/sanity";
 import type { any } from "astro/zod";
 
-
 const { generator, site } = Astro;
 const image = new URL("social.jpg", site);
 const description =
   "Build fast websites, faster. Astro is a new kind of site builder for the modern web. Lightning-fast performance meets powerful developer experience.";
-
-const query = `*[_type == "event"]`;
-const dataEvento = await client.fetch(query);
-
-
-
-
 ---
 
 <!doctype html>
@@ -34,7 +26,7 @@ const dataEvento = await client.fetch(query);
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="generator" content={generator} />
 
-    <title>Astro Landing Page</title>
+    <title>Trippy Trip Official Web Site</title>
     <meta name="description" content={description} />
 
     <!-- social media -->
@@ -80,10 +72,7 @@ const dataEvento = await client.fetch(query);
       <!-- <Compatibility /> -->
       <!-- <Showcase /> -->
       <Evento />
-      
 
-      
-      
       <script>
         const menu = document.getElementById("menu");
         const button = document.getElementById("menu-button");
