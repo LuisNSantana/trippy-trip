@@ -8,10 +8,10 @@ import { visionTool } from "@sanity/vision";
 import { assist } from "@sanity/assist";
 
 export default defineConfig({
-  name: "trippy-backend",
+  name: process.env.SANITY_STUDIO_NAME,
   title: process.env.SANITY_STUDIO_TITLE,
-  projectId: process.env.SANITY_PROJECT_ID!,
-  dataset: process.env.SANITY_DATASET,
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID,
+  dataset: process.env.SANITY_STUDIO_DATASET,
   plugins: [
     structureTool({
       structure: deskStructure,
