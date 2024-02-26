@@ -7,7 +7,7 @@ import { sanityIntegration } from "@sanity/astro";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://astro-moon-landing.netlify.app/",
+  site: "https://trippy-trip.netlify.app/",
   output: "hybrid",
   integrations: [
     tailwind(),
@@ -16,7 +16,7 @@ export default defineConfig({
       projectId: "u63a7pny",
       dataset: "production",
       // Set useCdn to false if you're building statically.
-      useCdn: false,
+      useCdn: true,
       studioBasePath: "/admin",
     }),
     react(),
