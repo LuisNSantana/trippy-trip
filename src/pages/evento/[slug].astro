@@ -4,26 +4,18 @@ import { client } from "../../../lib/sanity";
 import PortableText from '../../components/PortableText.astro';
 import Header from "~/components/header.astro";
 
-export async function getStaticPaths() {
-  const posts = await client.fetch(`*[_type == "event"]`);
 
-  return posts.map((post) => {
-    return {
-      params: {
-        slug: post.slug?.current || '',
-      },
-      props: { ...post },
-    };
-  });
-}
-
+const slug = Astro.params.slug;
+const eventData = await client.fetch(`*[_type == "event" && slug.current == $slug][0]`, { slug });
 const queryImage = `*[_type == "event"] {
   "title": title,
   "content": content[]{
     "text": children[].text,
-    "imageUrl": asset.url
+    "imageUrl": asset->url
   }
 }`;
+
+const { title, content } = eventData;
 
 // const dataImage = await client.fetch(queryImage);
 // {dataImage.map((evento) => (
@@ -40,7 +32,7 @@ const queryImage = `*[_type == "event"] {
 // console.log("IMAGEN CONSULTA:", dataImage)
 
 
-const { title, body } = Astro.props;
+
 
 ---
 <Header />
@@ -51,4 +43,4 @@ const { title, body } = Astro.props;
 
 
 
-<PortableText portableText={body} />
+<PortableText portableText={content} />

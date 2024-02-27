@@ -12,6 +12,7 @@ export default defineConfig({
   title: "trippy-backend",
   projectId: "u63a7pny",
   dataset: "production",
+  useCdn: true,
   plugins: [
     structureTool({
       structure: deskStructure,

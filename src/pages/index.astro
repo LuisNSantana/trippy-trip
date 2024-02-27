@@ -9,8 +9,8 @@ import Showcase from "~/components/showcase.astro";
 import Splash from "~/components/splash.astro";
 import Evento from "~/components/evento.astro";
 import "~/styles/index.css";
-import { client } from "../../lib/sanity";
-import type { any } from "astro/zod";
+import Contacto from "~/components/contacto.astro";
+
 
 const { generator, site } = Astro;
 const image = new URL("social.jpg", site);
@@ -72,6 +72,7 @@ const description =
       <!-- <Compatibility /> -->
       <!-- <Showcase /> -->
       <Evento />
+      <Contacto />
 
       <script>
         const menu = document.getElementById("menu");
