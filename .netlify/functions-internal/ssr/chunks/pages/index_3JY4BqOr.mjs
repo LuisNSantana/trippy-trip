@@ -1,4 +1,4 @@
-import { $ as $$Icon, a as $$ContentSection, b as $$Image, c as client, d as isoTipoTrippyBlanco, u as urlFor, e as $$Header } from './_slug__8wVykLMd.mjs';
+import { $ as $$Icon, a as $$ContentSection, b as $$Image, c as client, d as isoTipoTrippyBlanco, u as urlFor, e as $$Header } from './_slug__Fnm6ebro.mjs';
 import { e as createAstro, f as createComponent, r as renderTemplate, j as renderComponent, m as maybeRenderHead, F as Fragment, h as addAttribute, k as renderHead } from '../astro_jTt2QGKU.mjs';
 import 'kleur/colors';
 import 'cssesc';
@@ -197,9 +197,13 @@ const $$Evento = createComponent(async ($$result, $$props, $$slots) => {
   eventos.map((evento) => {
     return evento.content.map((elemento) => elemento.imageUrl).filter((imageUrl) => imageUrl !== null);
   });
+  eventosConImagen.map((evento, index) => {
+    console.log("URL FOR: " + urlFor(evento.image));
+  });
   const sizes = "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw";
   return renderTemplate`${renderComponent($$result, "ContentSection", $$ContentSection, { "title": "Eventos", "id": "evento" }, { "default": ($$result2) => renderTemplate`  ${maybeRenderHead()}<div class="max-w-6xl space-y-2"> ${eventosConImagen && renderTemplate`<ul class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"> ${eventosConImagen.map((evento, index) => {
     const imageUrl = urlFor(evento.image).url();
+    console.log("imgenUrl: ", imageUrl);
     return renderTemplate`<li${addAttribute(index, "key")}> <a class="group aspect-video hover:!text-default"${addAttribute(`evento/${evento.slug.current}`, "href")}> <figure class="relative h-full w-full overflow-hidden"> ${renderComponent($$result2, "Image", $$Image, { "class": "h-full w-full bg-cover object-cover transition-all duration-300 group-hover:scale-110 group-hover:opacity-20 group-focus:scale-110 group-focus:opacity-20", "src": imageUrl, "Usar": true, "la": true, "variable": true, "imageUrl": true, "width": 450, "height": 400, "sizes": sizes, "alt": `Imagen de ${evento.title}` })} <figcaption class="absolute inset-0"> <div class="flex h-full flex-col items-center justify-center gap-2 opacity-0 transition-all duration-300 group-hover:opacity-100 group-focus:opacity-100"> <h3 class="text-center font-extrabold uppercase text-xl"> ${evento.title} </h3> <p class="border border-current px-4 py-2">${evento.url}</p> </div> </figcaption> </figure> </a> </li>`;
   })} </ul>`} <p class="text-right text-sm"> <a class="text-primary" href="https://astro.build/showcase/">...and more &rarr;</a> </p> </div> `, "lead": ($$result2) => renderTemplate`${renderComponent($$result2, "Fragment", Fragment, { "slot": "lead" }, { "default": ($$result3) => renderTemplate`
 Explora la sección de eventos, descubre <span class="text-primary">Experiencias únicas</span> y crea <span class="text-primary">recuerdos inolvidables</span>. ¡No te los pierdas!

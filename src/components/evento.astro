@@ -24,11 +24,11 @@ const imagesByEvent = eventos.map(evento => {
   return evento.content.map(elemento => elemento.imageUrl).filter(imageUrl => imageUrl !== null);
 });
 
-// eventosConImagen.map((evento, index) =>{
-//   console.log("bucle", evento)
-//   console.log("URL FOR: " + urlFor(evento.image));
+eventosConImagen.map((evento, index) =>{
+  // console.log("bucle", evento)
+  console.log("URL FOR: " + urlFor(evento.image));
 
-// })
+ })
 const widths = [450, 800];
 const sizes = "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw";
 
@@ -44,6 +44,7 @@ const sizes = "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw";
         {eventosConImagen.map((evento, index) => {
           // Generar la URL de la imagen y almacenarla en una variable
           const imageUrl = urlFor(evento.image).url();
+          console.log("imgenUrl: ",imageUrl);
   
           return (
             <li key={index}>

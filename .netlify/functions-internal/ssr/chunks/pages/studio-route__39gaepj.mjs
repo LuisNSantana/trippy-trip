@@ -1,4 +1,4 @@
-import './_slug__8wVykLMd.mjs';
+import './_slug__Fnm6ebro.mjs';
 import { e as createAstro, f as createComponent, r as renderTemplate, h as addAttribute, k as renderHead, j as renderComponent } from '../astro_jTt2QGKU.mjs';
 import 'kleur/colors';
 import 'cssesc';
