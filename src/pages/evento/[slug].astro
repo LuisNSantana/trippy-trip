@@ -2,6 +2,7 @@
 import ContentSection from "~/components/content-section.astro";
 import { client } from "../../../lib/sanity";
 import PortableText from '../../components/PortableText.astro';
+import Header from "~/components/header.astro";
 
 export async function getStaticPaths() {
   const posts = await client.fetch(`*[_type == "event"]`);
@@ -42,8 +43,9 @@ const queryImage = `*[_type == "event"] {
 const { title, body } = Astro.props;
 
 ---
+<Header />
 <ContentSection title="Eventos" id="evento">
-  <h1>{title}</h1>
+  <h2>{title}</h2>
 </ContentSection>
 
 
