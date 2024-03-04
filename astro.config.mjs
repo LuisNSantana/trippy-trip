@@ -7,7 +7,6 @@ import { sanityIntegration } from "@sanity/astro";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://trippy-trip.netlify.app/",
   output: "server",
   integrations: [
     tailwind(),
@@ -22,6 +21,6 @@ export default defineConfig({
     react(),
   ],
   adapter: netlify({
-    edgeMiddleware: true
+    edgeMiddleware: true,
   }),
 });

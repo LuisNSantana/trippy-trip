@@ -6,7 +6,6 @@ import { client } from "../../lib/sanity";
 import { Image } from "astro:assets";
 import isoTipoTrippyBlanco from "~/assets/isotipo_blanco.png";
 
-
 let nombre_tab;
 let nombre_url;
 let navItems: NavItem[] = [];
@@ -15,41 +14,38 @@ async function getData() {
   try {
     // Asegúrate de que 'client' esté definido y configurado correctamente para hacer la petición
     const data = await client.fetch(query);
-     // Reiniciar los arreglos
-    
+    // Reiniciar los arreglos
+
     nombre_tab = data.map((item) => item.nombre);
     nombre_url = data.map((item) => item.url);
     createMenu();
     // Si necesitas manipular el DOM, asegúrate de que los elementos estén presentes
-    
   } catch (err) {
     console.error("Error fetching data:", err);
   }
 }
 
-
 function createMenu() {
-  
   navItems = nombre_tab.map((title, index) => ({
     title,
-    url: "#" + nombre_url[index]
+    url: "#" + nombre_url[index],
   }));
 
   const menuList = document.querySelector(`#menu-modal ul`);
   if (!menuList) return; // Ensure menuList exists
   // Guardar una referencia a los elementos de lista actuales
-const existingItems = menuList.querySelectorAll('li');
+  const existingItems = menuList.querySelectorAll("li");
   if (navItems.length > existingItems.length) {
-  for (let i = existingItems.length; i < navItems.length; i++) {
-    const listItem = document.createElement("li");
-    const link = document.createElement("a");
-    link.classList.add("block", "py-4", "text-center", "text-xl");
-    link.setAttribute("href", navItems[i].url);
-    link.textContent = navItems[i].title;
-    listItem.appendChild(link);
-    menuList.appendChild(listItem);
+    for (let i = existingItems.length; i < navItems.length; i++) {
+      const listItem = document.createElement("li");
+      const link = document.createElement("a");
+      link.classList.add("block", "py-4", "text-center", "text-xl");
+      link.setAttribute("href", navItems[i].url);
+      link.textContent = navItems[i].title;
+      listItem.appendChild(link);
+      menuList.appendChild(listItem);
+    }
   }
-}
 }
 await getData();
 ---
@@ -60,11 +56,7 @@ await getData();
 >
   <a class="flex items-center gap-3 hover:!text-default" href="#">
     <h1 class="sr-only">Trippy trip</h1>
-    <Image
-    class="size-10"
-    src={isoTipoTrippyBlanco}
-    alt="Trippy Trip logo"
-    />
+    <Image class="size-10" src={isoTipoTrippyBlanco} alt="Trippy Trip logo" />
   </a>
   <div>
     <div class="flex items-center gap-6">
@@ -109,7 +101,7 @@ await getData();
               class="size-16"
               src={isoTipoTrippyBlanco}
               alt="Trippy Trip logo"
-              />
+            />
           </div>
           <nav>
             <ul class="flex flex-col">

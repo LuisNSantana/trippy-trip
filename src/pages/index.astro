@@ -11,9 +11,8 @@ import Evento from "~/components/evento.astro";
 import "~/styles/index.css";
 import Contacto from "~/components/contacto.astro";
 
-
-const { generator, site } = Astro;
-const image = new URL("social.jpg", site);
+const { generator } = Astro;
+// const image = new URL("social.jpg");
 const description =
   "Build fast websites, faster. Astro is a new kind of site builder for the modern web. Lightning-fast performance meets powerful developer experience.";
 ---
@@ -33,8 +32,8 @@ const description =
     <meta property="og:title" content="Astro" />
     <meta property="og:type" content="website" />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
-    <meta property="og:url" content={site} />
+    <!-- <meta property="og:image" content={image} /> -->
+    <!-- <meta property="og:url" content={site} /> -->
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- initialize theme -->
