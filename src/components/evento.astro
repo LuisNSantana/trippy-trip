@@ -37,19 +37,18 @@ const sizes = "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw";
         {eventosConImagen.map((evento, index) => {
           // Generación de la URL de la imagen con fallback para errores de carga
           const imageUrl = urlFor(evento.image).url() || '/fallback-image-url.jpg'; // Asegúrate de tener una imagen de fallback disponible
-
+          console.log(evento.image)
           return (
             <li key={evento.slug}>
               <a class="group aspect-video hover:!text-default" href={`evento/${evento.slug}`}>
                 <figure class="relative h-full w-full overflow-hidden">
-                  <Image
-                    class="h-full w-full bg-cover object-cover transition-all duration-300 group-hover:scale-110 group-hover:opacity-20 group-focus:scale-110 group-focus:opacity-20"
-                    src={imageUrl}  // Uso de la variable imageUrl
-                    width={widths[0]}  // Ajuste basado en las dimensiones deseadas
-                    height={(widths[0] / 16) * 9}  // Ajuste para mantener una proporción 16:9
-                    sizes={sizes}
-                    alt={`Imagen de ${evento.title}`}
-                  />
+                  <picture>
+                  <!-- Utiliza el elemento <source> para especificar fuentes de imagen alternativas -->
+                  <source srcset={urlFor(evento.image).format("webp").url()} type="image/webp" />
+                  <!-- El elemento <img> se utilizará como fallback -->
+                  <img src={urlFor(evento.image).url()} alt={`Imagen de ${evento.title}`} class="responsive__img" />
+                </picture>
+                <!-- Caption y otros elementos si son necesarios -->
                   <figcaption class="absolute inset-0">
                     <div class="flex h-full flex-col items-center justify-center gap-2 opacity-0 transition-all duration-300 group-hover:opacity-100 group-focus:opacity-100">
                       <h3 class="text-center font-extrabold uppercase text-xl">
