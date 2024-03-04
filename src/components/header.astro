@@ -1,4 +1,5 @@
 ---
+// Importaciones necesarias
 import { Icon } from "astro-icon/components";
 import ThemeSwitcher from "~/components/theme-switcher.astro";
 import type { NavItem } from "~/types";
@@ -7,44 +8,17 @@ import { Image } from "astro:assets";
 import isoTipoTrippyBlanco from "~/assets/isotipo_blanco.png";
 import type { Menu } from "../../interface/menu.ts";
 
-let nombre_tab: string;
-let nombre_url: string;
 let navItems: NavItem[] = [];
 async function getData() {
   const query = `*[_type == "menu"]`;
   try {
-    // Asegúrate de que 'client' esté definido y configurado correctamente para hacer la petición
     const data = await client.fetch(query);
-    // Reiniciar los arreglos
-    nombre_tab = data.map((item: Menu) => item.nombre);
-    nombre_url = data.map((item: Menu) => item.url);
-    createMenu();
-    // Si necesitas manipular el DOM, asegúrate de que los elementos estén presentes
+    navItems = data.map((item: Menu) => ({
+      title: item.nombre,
+      url: `#${item.url}`,
+    }));
   } catch (err) {
     console.error("Error fetching data:", err);
-  }
-}
-
-function createMenu() {
-  navItems = nombre_tab.map((title: string, index: any) => ({
-    title,
-    url: "#" + nombre_url[index],
-  }));
-
-  const menuList = document.querySelector(`#menu-modal ul`);
-  if (!menuList) return; // Ensure menuList exists
-  // Guardar una referencia a los elementos de lista actuales
-  const existingItems = menuList.querySelectorAll("li");
-  if (navItems.length > existingItems.length) {
-    for (let i = existingItems.length; i < navItems.length; i++) {
-      const listItem = document.createElement("li");
-      const link = document.createElement("a");
-      link.classList.add("block", "py-4", "text-center", "text-xl");
-      link.setAttribute("href", navItems[i].url);
-      link.textContent = navItems[i].title;
-      listItem.appendChild(link);
-      menuList.appendChild(listItem);
-    }
   }
 }
 await getData();
@@ -59,123 +33,87 @@ await getData();
     <Image class="size-10" src={isoTipoTrippyBlanco} alt="Trippy Trip logo" />
   </a>
   <div>
-    <div class="flex items-center gap-6">
-      <nav class="hidden sm:block">
-        <ul class="flex items-center gap-6">
-          {
-            navItems.map(({ title, url }) => (
-              <li>
-                <a class="text-sm" href={url}>
-                  {title}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
-      <button
-        id="open-nav-button"
-        type="button"
-        class="btn sm:hidden"
-        aria-label="Navigation"
-      >
-        <Icon name="mdi:menu" class="size-8" />
-      </button>
-      <ThemeSwitcher />
-    </div>
-    <div id="menu-modal" class="modal hidden" aria-hidden="true">
-      <div class="fixed inset-0 bg-default px-8 py-4 text-default">
-        <div class="space-y-4" role="dialog" aria-modal="true">
-          <header class="text-right">
-            <button
-              id="close-nav-button"
-              type="button"
-              class="btn"
-              aria-label="Close navigation"
-            >
-              <Icon name="mdi:close" class="size-8" />
-            </button>
-          </header>
-          <div class="flex justify-center">
-            <Image
-              class="size-16"
-              src={isoTipoTrippyBlanco}
-              alt="Trippy Trip logo"
-            />
+    <div>
+      <div class="flex items-center gap-6">
+        <nav class="hidden sm:block">
+          <ul class="flex items-center gap-6">
+            {
+              navItems.map(({ title, url }, index) => (
+                <li key={index}>
+                  <a class="text-sm" href={url}>
+                    {title}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <button
+          id="open-nav-button"
+          type="button"
+          class="btn sm:hidden"
+          aria-label="Navigation"
+        >
+          <Icon name="mdi:menu" class="size-8" />
+        </button>
+        <ThemeSwitcher />
+      </div>
+      <div id="menu-modal" class="modal hidden" aria-hidden="true">
+        <div class="fixed inset-0 bg-default px-8 py-4 text-default">
+          <div class="space-y-4" role="dialog" aria-modal="true">
+            <header class="text-right">
+              <button
+                id="close-nav-button"
+                type="button"
+                class="btn"
+                aria-label="Close navigation"
+              >
+                <Icon name="mdi:close" class="size-8" />
+              </button>
+            </header>
+            <div class="flex justify-center">
+              <Image
+                class="size-16"
+                src={isoTipoTrippyBlanco}
+                alt="Trippy Trip logo"
+              />
+            </div>
+            <nav>
+              <ul class="flex flex-col">
+                {
+                  navItems.map(({ title, url }, index) => (
+                    <li key={index}>
+                      <a class="block py-4 text-center text-xl" href={url}>
+                        {title}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </nav>
           </div>
-          <nav>
-            <ul class="flex flex-col">
-              {
-                navItems.map(({ title, url }) => (
-                  <li>
-                    <a class="block py-4 text-center text-xl" href={url}>
-                      {title}
-                    </a>
-                  </li>
-                ))
-              }
-            </ul>
-          </nav>
         </div>
       </div>
     </div>
   </div>
+
+  <script type="module" client:load>
+    import MicroModal from "micromodal";
+    // Asegúrate de que MicroModal y cualquier otra dependencia estén disponibles en el cliente
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const openNavButton = document.getElementById("open-nav-button");
+      const closeNavButton = document.getElementById("close-nav-button");
+      const menuModalId = "menu-modal";
+
+      if (openNavButton && closeNavButton) {
+        openNavButton.addEventListener("click", () =>
+          MicroModal.show(menuModalId),
+        );
+        closeNavButton.addEventListener("click", () =>
+          MicroModal.close(menuModalId),
+        );
+      }
+    });
+  </script>
 </header>
-
-<script>
-  import MicroModal from "micromodal";
-  import invariant from "tiny-invariant";
-
-  const menuModalId = "menu-modal";
-
-  const header = document.querySelector("#page-header") as HTMLElement;
-  const page = document.documentElement;
-  const menu = document.querySelector(`#${menuModalId} ul`);
-  const openNavButton = document.querySelector("#open-nav-button");
-  const closeNavButton = document.querySelector("#close-nav-button");
-
-  invariant(header, "header should not be null");
-  invariant(menu, "menu should not be null");
-  invariant(openNavButton, "openNavButton should not be null");
-  invariant(closeNavButton, "closeNavButton should not be null");
-
-  const openMenu = () => {
-    MicroModal.show(menuModalId, { disableScroll: true });
-  };
-
-  const closeMenu = () => {
-    MicroModal.close(menuModalId);
-  };
-
-  openNavButton.addEventListener("click", openMenu);
-  closeNavButton.addEventListener("click", closeMenu);
-
-  document.addEventListener("scroll", () => {
-    const d = page.clientHeight - page.scrollTop - header.offsetHeight;
-    header.classList.toggle("fixed-header", d < 0);
-  });
-
-  menu.addEventListener("click", (event) => {
-    if ((event.target as HTMLElement).tagName === "A") {
-      closeMenu();
-    }
-  });
-</script>
-
-<noscript>
-  <style>
-    #open-nav-button {
-      display: none;
-    }
-  </style>
-</noscript>
-
-<style>
-  .fixed-header {
-    @apply fixed bottom-auto top-0;
-    @apply border-default bg-default text-default;
-  }
-  .modal.is-open {
-    @apply block;
-  }
-</style>
