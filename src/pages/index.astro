@@ -59,6 +59,7 @@ const description =
           }
         });
     </script>
+    <!-- Agrega esto dentro de la etiqueta <head> en tu layout o componente de Astro -->
   </head>
   <body
     class="h-full overflow-x-hidden bg-default text-default text-base selection:bg-secondary selection:text-white"
@@ -72,19 +73,6 @@ const description =
       <!-- <Showcase /> -->
       <Evento />
       <Contacto />
-
-      <script>
-        const menu = document.getElementById("menu");
-        const button = document.getElementById("menu-button");
-        const nav = document.getElementById("nav");
-
-        function toggleMenu() {
-          nav.classList.toggle("hidden");
-          button.classList.toggle("hidden");
-        }
-
-        button.addEventListener("click", toggleMenu);
-      </script>
     </div>
     <Footer />
   </body>
