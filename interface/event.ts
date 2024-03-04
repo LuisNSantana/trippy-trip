@@ -1,10 +1,12 @@
-export interface Event {
-    title: string;
-    overview: string;
-    content: any;
-    _id: string;
-    slug: {
-      current: string;
-    };
-    _createdAt: string;
-  }
+export interface ContentItem {
+  text: string;
+  imageUrl: string;
+}
+
+export interface Evento {
+  title: string;
+  slug: string; // Suponiendo que slug.current es un string
+  url: string;
+  image: string; // Suponiendo que image.asset->url es un string
+  content: ContentItem[];
+}

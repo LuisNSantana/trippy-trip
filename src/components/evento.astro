@@ -1,9 +1,8 @@
 ---
-// Importaciones necesarias
 import { client } from "../../lib/sanity";
 import ContentSection from "./content-section.astro";
-import { Image } from "astro:assets";
 import { urlFor } from "../../lib/urlForImage";
+import type { Evento, ContentItem } from "../../interface/event.ts";
 
 // Obtención de datos de eventos
 const eventos = await client.fetch(
@@ -16,51 +15,64 @@ const eventos = await client.fetch(
       "text": children[].text,
       "imageUrl": asset->url
     }
-  }`
+  }`,
 );
 
 // Filtro de eventos que solo tengan imagen
-const eventosConImagen = eventos.filter((evento) => evento.image);
+const eventosConImagen = eventos.filter((evento: Evento) => evento.image);
 ---
 
 <ContentSection title="Eventos" id="evento">
   <Fragment slot="lead">
-    Explora la sección de eventos, descubre <span class="text-primary">Experiencias únicas</span> y crea <span class="text-primary">recuerdos inolvidables</span>. ¡No te los pierdas!
+    Explora la sección de eventos, descubre <span class="text-primary"
+      >Experiencias únicas</span
+    > y crea <span class="text-primary">recuerdos inolvidables</span>. ¡No te
+    los pierdas!
   </Fragment>
   <div class="max-w-6xl space-y-2">
-    {eventosConImagen.length > 0 && (
-      <ul class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {eventosConImagen.map((evento, index) => (
-          <li key={evento.slug}>
-            <a class="group aspect-video hover:!text-default" href={`evento/${evento.slug}`}>
-              <figure class="relative h-full w-full overflow-hidden">
-                <!-- Utiliza el componente Image de Astro con la URL absoluta -->
-                <Image
-                  class="h-full w-full bg-cover object-cover transition-all duration-300 group-hover:scale-110 group-hover:opacity-20 group-focus:scale-110 group-focus:opacity-20"
-                  src={evento.image}  // Se utiliza directamente evento.image que contiene la URL absoluta
-                  width={450}
-                  height={400}
-                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                  alt={`Imagen de ${evento.title}`}
-                />
-                <figcaption class="absolute inset-0">
-                  <div class="flex h-full flex-col items-center justify-center gap-2 opacity-0 transition-all duration-300 group-hover:opacity-100 group-focus:opacity-100">
-                    <h3 class="text-center font-extrabold uppercase text-xl">
-                      {evento.title}
-                    </h3>
-                    <p class="border border-current px-4 py-2">
-                      {evento.url}
-                    </p>
-                  </div>
-                </figcaption>
-              </figure>
-            </a>
-          </li>
-        ))}
-      </ul>
-    )}
+    {
+      eventosConImagen.length > 0 && (
+        <ul class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {eventosConImagen.map((evento: Evento, index: any) => (
+            <li key={evento.slug}>
+              <a
+                class="group aspect-video hover:!text-default"
+                href={`evento/${evento.slug}`}
+              >
+                <figure class="relative h-full w-full overflow-hidden">
+                  <picture>
+                    <source
+                      srcset={urlFor(evento.image).format("webp").url()}
+                      type="image/webp"
+                    />
+                    <img
+                      src={urlFor(evento.image).url()}
+                      alt={`Imagen de ${evento.title}`}
+                      loading="lazy"
+                      class="h-full w-full bg-cover object-cover transition-all duration-300 group-hover:scale-110 group-hover:opacity-20 group-focus:scale-110 group-focus:opacity-20"
+                    />
+                  </picture>
+                  <figcaption class="absolute inset-0">
+                    <div class="flex h-full flex-col items-center justify-center gap-2 opacity-0 transition-all duration-300 group-hover:opacity-100 group-focus:opacity-100">
+                      <h3 class="text-center font-extrabold uppercase text-xl">
+                        {evento.title}
+                      </h3>
+                      <p class="border border-current px-4 py-2">
+                        {evento.url}
+                      </p>
+                    </div>
+                  </figcaption>
+                </figure>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
     <p class="text-right text-sm">
-      <a class="text-primary" href="https://astro.build/showcase/">...and more &rarr;</a>
+      <a class="text-primary" href="https://astro.build/showcase/"
+        >...and more &rarr;</a
+      >
     </p>
   </div>
 </ContentSection>

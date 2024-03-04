@@ -5,9 +5,10 @@ import type { NavItem } from "~/types";
 import { client } from "../../lib/sanity";
 import { Image } from "astro:assets";
 import isoTipoTrippyBlanco from "~/assets/isotipo_blanco.png";
+import type { Menu } from "../../interface/menu.ts";
 
-let nombre_tab;
-let nombre_url;
+let nombre_tab: string;
+let nombre_url: string;
 let navItems: NavItem[] = [];
 async function getData() {
   const query = `*[_type == "menu"]`;
@@ -15,9 +16,8 @@ async function getData() {
     // Asegúrate de que 'client' esté definido y configurado correctamente para hacer la petición
     const data = await client.fetch(query);
     // Reiniciar los arreglos
-
-    nombre_tab = data.map((item) => item.nombre);
-    nombre_url = data.map((item) => item.url);
+    nombre_tab = data.map((item: Menu) => item.nombre);
+    nombre_url = data.map((item: Menu) => item.url);
     createMenu();
     // Si necesitas manipular el DOM, asegúrate de que los elementos estén presentes
   } catch (err) {
@@ -26,7 +26,7 @@ async function getData() {
 }
 
 function createMenu() {
-  navItems = nombre_tab.map((title, index) => ({
+  navItems = nombre_tab.map((title: string, index: any) => ({
     title,
     url: "#" + nombre_url[index],
   }));

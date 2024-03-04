@@ -16,10 +16,9 @@ async function getData() {
   try {
     // Asegúrate de que 'client' esté definido y configurado correctamente para hacer la petición
     const data = await client.fetch(query);
-    descripcion = data.map((item) => item.descripcion)[0];
+    descripcion = data.map((item: any) => item.descripcion)[0];
 
     // Si necesitas manipular el DOM, asegúrate de que los elementos estén presentes
-    
   } catch (err) {
     console.error("Error fetching data:", err);
   }
@@ -39,10 +38,10 @@ await getData();
     >
       <!-- <Icon name="logomark" class="size-24 text-white md:size-32"   /> -->
       <Image
-        class="size-28 md:32"
+        class="md:32 size-28"
         src={isoTipoTrippyBlanco}
         alt="Trippy Trip logo"
-        />
+      />
       <div
         class="gradient-text text-center font-extrabold tracking-tighter text-8xl"
       >
