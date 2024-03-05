@@ -1,0 +1,83 @@
+---
+import { client } from "../../lib/sanity";
+import ContentSection from "./content-section.astro";
+import { urlFor } from "../../lib/urlForImage";
+import type { Gallery } from "../../interface/gallery.ts";
+
+// Obtención de datos de Gallerys
+const Gallerys = await client.fetch(
+  `*[_type == "gallery"] {
+    "title": title,
+    "slug": slug.current,
+    "image": image.asset->url,
+    "author":{
+        "name": author->name,
+        "image":author->image.asset->url
+    }
+  }`,
+);
+
+// Filtro de Gallerys que solo tengan imagen
+const GallerysConImagen = Gallerys.filter((Gallery: Gallery) => Gallery.image);
+
+// console.log("galeria: ", Gallerys);
+---
+
+<ContentSection title="Galería" id="gallery">
+  <Fragment slot="lead">
+    Explora nuestra galería y sumérgete en las vibrantes aventuras de Trippy
+    Trip. ¡Cada foto te invita a vivir experiencias únicas!
+  </Fragment>
+  <div class="max-w-6xl space-y-2">
+    {
+      GallerysConImagen.length > 0 && (
+        <ul class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {GallerysConImagen.map((Gallery: Gallery, index: any) => (
+            <li key={Gallery.slug}>
+              <a
+                class="group aspect-video hover:!text-default"
+                href={`Gallery/${Gallery.slug}`}
+              >
+                <figure class="relative h-full w-full overflow-hidden">
+                  <picture>
+                    <source
+                      srcset={urlFor(Gallery.image).format("webp").url()}
+                      type="image/webp"
+                    />
+                    <img
+                      src={urlFor(Gallery.image).url()}
+                      alt={`Imagen de ${Gallery.title}`}
+                      loading="lazy"
+                      class="h-full w-full bg-cover object-cover transition-all duration-300 group-hover:scale-110 group-hover:opacity-20 group-focus:scale-110 group-focus:opacity-20"
+                    />
+                  </picture>
+                  <figcaption class="absolute inset-0">
+                    <div class="flex h-full flex-col items-center justify-center gap-2 opacity-0 transition-all duration-300 group-hover:opacity-100 group-focus:opacity-100">
+                      <h3 class="text-center font-extrabold uppercase text-xl">
+                        {Gallery.title}
+                      </h3>
+
+                      <div class="flex items-center space-x-4">
+                        <img
+                          src={urlFor(Gallery.author.image).url()}
+                          alt="Nombre del Autor"
+                          class="h-10 w-10 rounded-full object-cover"
+                        />
+                        <span class="font-semibold">{Gallery.author.name}</span>
+                      </div>
+                    </div>
+                  </figcaption>
+                </figure>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    <p class="text-right text-sm">
+      <a class="text-primary" href="https://astro.build/showcase/"
+        >...and more &rarr;</a
+      >
+    </p>
+  </div>
+</ContentSection>

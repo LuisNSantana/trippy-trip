@@ -1,6 +1,5 @@
 ---
 import "@fontsource-variable/inter";
-import Compatibility from "~/components/compatibility.astro";
 import Features from "~/components/features.astro";
 import Footer from "~/components/footer.astro";
 import Header from "~/components/header.astro";
@@ -10,6 +9,7 @@ import Splash from "~/components/splash.astro";
 import Evento from "~/components/evento.astro";
 import "~/styles/index.css";
 import Contacto from "~/components/contacto.astro";
+import Gallery from "~/components/gallery.astro";
 
 const { generator, site } = Astro;
 const image = new URL("logoblanco_confondo.png", site);
@@ -69,9 +69,9 @@ const description =
     <div class="space-y-24 px-8 py-32">
       <Intro />
       <Features />
-      <!-- <Compatibility /> -->
       <!-- <Showcase /> -->
       <Evento />
+      <Gallery />
       <Contacto />
     </div>
     <Footer />
